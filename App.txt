@@ -1,0 +1,25 @@
+
+(function(){
+var app = angular.module('bats', []);
+
+var MainController = function($scope, $http){
+   $scope.name = 'World';
+   
+   var onUserComplete = function(response){
+     $scope.user = response.data;
+   };
+   
+   var onError = function(reason){
+     $scope.error = "error finding the user";
+   };
+   
+   $scope.search = function(username){
+      $http.get("https://api.github.com/users/" + username).then(onUserComplete, onError);
+   };
+  
+};
+
+
+app.controller('MainCtrl',["$scope","$http", MainController]);
+
+}());
